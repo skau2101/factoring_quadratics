@@ -4,14 +4,63 @@
         <title>Factoring Quadratics</title>
     </head>
     <body>
-        <input type="text" id="a" placeholder="Value 'a'">
-        <input type="text" id="b" placeholder="Value 'b'">
-        <input type="text" id="c" placeholder="Value 'c'">
-        <button onclick="submit()">Submit</button>
-        <div id="output"></div>
+        <div id="display">
+            <input type="text" id="a" class="top" placeholder="Value 'a'">
+            <input type="text" id="b" placeholder="Value 'b'">
+            <input type="text" id="c" placeholder="Value 'c'">
+            <button onclick="submit()">SUBMIT</button>
+            <div id="output"></div>
+        </div>
         
         <style>
-            
+            .top{
+                margin-top : 10%;
+            }
+            input{
+                width : 70%;
+                height : 8%;
+                margin-top : 5%;
+                display: block;
+                margin-left : 15%;
+                border : 2px solid black;
+                font-size : 1.5em;
+                text-align : center;
+                border-radius : 5%;
+            }
+            button{
+                display : block;
+                width : 40%;
+                margin-left : 30%;
+                margin-top : 10%;
+                height : 8%;
+                font-size : 1.3em;
+                font-family : Helvetica;
+                border-radius : 10%;
+            }
+            #display{
+                width : 50vw;
+                margin-left : 25vw;
+                height : 80vh;
+                margin-top : 8vh;
+                border : 2px solid black;
+                border-radius : 10%;
+                background : #9999ff;
+            }
+            #output{
+                width : 60%;
+                margin-left : 20%;
+                margin-top : 15%;
+                height : 10%;
+                border: 1px solid black;
+                text-align : center;
+                background : #ddffdd;
+            }
+            #output h3{
+                margin : 7%;
+            }
+            body{
+                margin : 0px;
+            }
         </style>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

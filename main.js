@@ -55,5 +55,10 @@ function assemble(num1, num2){
 }
 
 function display(assembly){
-    $('#output')[0].innerHTML = assembly;
+    $('#output')[0].innerHTML = "<h3>" + assembly + "</h3>";
 }
+
+
+document.addEventListener('keydown', function(e){
+    if(e.keyCode == 13) submit();
+});
