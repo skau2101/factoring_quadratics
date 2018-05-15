@@ -56,9 +56,25 @@ function assemble(num1, num2){
 
 function display(assembly){
     $('#output')[0].innerHTML = "<h3>" + assembly + "</h3>";
+    log(assembly);
 }
 
+function log(assembly){
+    var row = document.createElement('tr');
+    var equation = document.createElement('td');
+    var factored = document.createElement('td');
+    row.insertBefore(equation, null);
+    row.insertBefore(factored, null);
+    $('#table')[0].insertBefore(row, null);
+    
+    equation.innerHTML = 'f(x)= ' + a + 'x' + '<sup>2</sup>' +
+        ' + ' + b + 'x' + ' + ' + c;
+    factored.innerHTML = assembly;
+}
 
-document.addEventListener('keydown', function(e){
-    if(e.keyCode == 13) submit();
-});
+for(var i in $("input")){
+    console.log(i);
+    if(i % 1 == 0) $("input")[i].addEventListener('keydown', function(e){
+        if(e.keyCode == 13) submit();
+    });
+}

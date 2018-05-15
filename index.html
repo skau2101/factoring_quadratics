@@ -8,29 +8,44 @@
             <div id="title">
             <h2>FACTORING QUADRATICS</h2>
             </div>
-            <input type="text" id="a" class="top" placeholder="Value 'a'">
-            <input type="text" id="b" placeholder="Value 'b'">
-            <input type="text" id="c" placeholder="Value 'c'">
+            <!--<div id="inputs">-->
+                <input type="text" id="a" class="top" placeholder="Value 'a'">
+                <input type="text" id="b" placeholder="Value 'b'">
+                <input type="text" id="c" placeholder="Value 'c'">
+            <!--</div>-->
             <button onclick="submit()">FACTOR</button>
             <div id="output"></div>
         </div>
         
+        <table id="data">
+            <thead>
+                <tr>
+                   <th>Equation</th>
+                   <th>Factored</th>
+                </tr>
+            </thead>
+            <tbody id="table">
+                
+            </tbody>
+        </table>
+        
         <style>
             #title{
                 width : 80%;
-                height : 1.4em%;
+                height : 6%;
                 margin-left : 10%;
                 background : #ccccff;
                 text-align : center;
+                line-height : 2em;
             }
             h2{
                 font-size : 1.2em;
                 font-family : Helvetica monospace;
-                margin-top : 5%;
+                margin-top : 8%;
                 margin-bottom : 0;
             }
             .top{
-                margin-top : 5%;
+                margin-top : 8%;
             }
             input{
                 width : 70%;
@@ -56,12 +71,14 @@
             #display{
                 height : 80vh;
                 width : 55vh;
-                margin-left : 25vw;
+                margin-left : 15vh;
                 margin-top : 8vh;
-                border : 2px solid black;
+                border : 4px solid black;
                 border-radius : 10%;
                 background : #9999ff;
                 text-align : center;
+                box-shadow : -15px 10px 8px;
+                /*display : inline-block;*/
             }
             #output{
                 width : 60%;
@@ -77,6 +94,22 @@
             }
             body{
                 margin : 0px;
+                background : #eeffaa;
+            }
+            #data{
+                position : absolute;
+                top : 10vh;
+                left : 75vh;
+                background : #eeeedd;
+                box-shadow : -2px 2px 10px;
+            }
+            th{
+                font-size : 2.5em;
+                width : 35vh;
+            }
+            td{
+                font-size : 1.2em;
+                text-align : center;
             }
         </style>
         
