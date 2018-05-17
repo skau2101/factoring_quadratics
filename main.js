@@ -51,7 +51,7 @@ function check(b, factors){
 }
 
 function assemble(num1, num2){
-    display(a + "(x + " + num1 + ")(x + " + num2 + ")");
+    display("(" + a + "x + " + num1 + ")(x + " + num2 + ")");
 }
 
 function display(assembly){
