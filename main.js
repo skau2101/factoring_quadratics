@@ -50,13 +50,13 @@ function check(b, factors){
 }
 
 function assemble(num1, num2){
+    b *= a;
+    c *= a;
+    if(a == 1) a = "";
     display(a + "(" + "x + " + num1 + ")(x + " + num2 + ")");
 }
 
 function display(assembly){
-    b *= a;
-    c *= a;
-    if(a == 1) a = "";
     $('#output')[0].innerHTML = "<h3>" + assembly + "</h3>";
     log(assembly);
 }
