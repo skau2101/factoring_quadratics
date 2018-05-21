@@ -37,7 +37,10 @@ function factor(){
     }
     
     if(check(b, factors)) assemble(factors[0], factors[1]);
-    else alert('Cannot be factored');
+    else{
+        alert('Cannot be factored');
+        $("#output")[0].innerHTML = "";
+    }
 }
 
 function check(b, factors){
