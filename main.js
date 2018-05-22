@@ -25,6 +25,8 @@ function factor(){
     var term1 = form.a / gcf1;
     var term2 = b[0] / gcf1;
     
+    log(assemble(term1, term2, gcf1, gcf2));
+
     return(assemble(term1, term2, gcf1, gcf2));
 }
 
@@ -77,18 +79,18 @@ function assemble(term1, term2, gcf1, gcf2){
     return("(" + term1 +  "x + " + term2 + ")(" + gcf1 + "x + " + gcf2 + ")");
 }
 
-// function log(assembly){
-//     var row = document.createElement('tr');
-//     var equation = document.createElement('td');
-//     var factored = document.createElement('td');
-//     row.insertBefore(equation, null);
-//     row.insertBefore(factored, null);
-//     $('#table')[0].insertBefore(row, null);
+function log(assembly){
+    var row = document.createElement('tr');
+    var equation = document.createElement('td');
+    var factored = document.createElement('td');
+    row.insertBefore(equation, null);
+    row.insertBefore(factored, null);
+    $('#table')[0].insertBefore(row, null);
     
-//     equation.innerHTML = 'f(x)= ' + form.a + 'x' + '<sup>2</sup>' +
-//         ' + ' + form.b + 'x' + ' + ' + form.c;
-//     factored.innerHTML = assembly;
-// }
+    equation.innerHTML = 'f(x)= ' + form.a + 'x' + '<sup>2</sup>' +
+        ' + ' + form.b + 'x' + ' + ' + form.c;
+    factored.innerHTML = assembly;
+}
 
 function end(code){
     if(code !== 0) alert('Cannnot be factored');
