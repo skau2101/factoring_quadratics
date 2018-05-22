@@ -1,20 +1,34 @@
-var a, b, c;
-var num1, num2;
+var form;
+
+var error = 'Cannot be factored';
 
 function submit(){
-    a = $('#a').val();
-    b = $('#b').val();
-    c = $('#c').val();
+    form = {
+        a : $('#a').val(),
+        b : $('#b').val(),
+        c : $('#c').val()
+    };
     
-    if(!a) a = 1;
-    b /= a;
-    c /= a;
-    
-    factor();
+    $('#output')[0].innerHTML = '<h3>' + factor() + '</h3>';
 }
 
 function factor(){
+    if(!form.a) form.a = 1;
+    var b = findB(form.a * form.c, form.b);
+        if(!b) return error;
+        console.log(b);
+    var gcf1 = gcf(form.a, b[0]);
+        console.log(gcf1);
+        if(!gcf1) return error;
+    var gcf2 = gcf(b[1], form.c);
+        if(!gcf2) return error;
+    var term1 = form.a / gcf1;
+    var term2 = b[0] / gcf1;
+    
+    return(assemble(term1, term2, gcf1, gcf2));
+}
 
+function findB(c, b){
     var factors = [];
     var guess = 0;
     while(guess < Math.sqrt(Math.abs(c))){
@@ -35,50 +49,52 @@ function factor(){
         
         guess += 1;
     }
-    
-    if(check(b, factors)) assemble(factors[0], factors[1]);
-    else{
-        alert('Cannot be factored');
-        $("#output")[0].innerHTML = "";
+    return(check(b, factors) ? factors : false);
+}
+
+function gcf(x, y){
+    for(var i = x; i > 0; i--){
+        if(x % i === 0 && y % i === 0){
+            return i;
+        }
     }
+    return false;
 }
 
 function check(b, factors){
-    console.log(factors);
-    
-    if(factors[0] + factors[1] == b){
-        return true;
-    }
+    if(factors[0] + factors[1] == b) return true;
     else return false;
 }
 
-function assemble(num1, num2){
-    b *= a;
-    c *= a;
-    if(a == 1) a = "";
-    display(a + "(" + "x + " + num1 + ")(x + " + num2 + ")");
-}
-
-function display(assembly){
-    $('#output')[0].innerHTML = "<h3>" + assembly + "</h3>";
-    log(assembly);
-}
-
-function log(assembly){
-    var row = document.createElement('tr');
-    var equation = document.createElement('td');
-    var factored = document.createElement('td');
-    row.insertBefore(equation, null);
-    row.insertBefore(factored, null);
-    $('#table')[0].insertBefore(row, null);
+function simplify(){
     
-    equation.innerHTML = 'f(x)= ' + a + 'x' + '<sup>2</sup>' +
-        ' + ' + b + 'x' + ' + ' + c;
-    factored.innerHTML = assembly;
+}
+
+function assemble(term1, term2, gcf1, gcf2){
+    if(term1 == 1) term1 = "";
+    if(gcf1 == 1) gcf1 = "";
+    
+    return("(" + term1 +  "x + " + term2 + ")(" + gcf1 + "x + " + gcf2 + ")");
+}
+
+// function log(assembly){
+//     var row = document.createElement('tr');
+//     var equation = document.createElement('td');
+//     var factored = document.createElement('td');
+//     row.insertBefore(equation, null);
+//     row.insertBefore(factored, null);
+//     $('#table')[0].insertBefore(row, null);
+    
+//     equation.innerHTML = 'f(x)= ' + form.a + 'x' + '<sup>2</sup>' +
+//         ' + ' + form.b + 'x' + ' + ' + form.c;
+//     factored.innerHTML = assembly;
+// }
+
+function end(code){
+    if(code !== 0) alert('Cannnot be factored');
 }
 
 for(var i in $("input")){
-    console.log(i);
     if(i % 1 == 0) $("input")[i].addEventListener('keydown', function(e){
         if(e.keyCode == 13) submit();
     });
