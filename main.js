@@ -1,6 +1,6 @@
 var form;
 
-var error = 'Cannot be factored';
+var error = "CAN'T BE FACTORED";
 
 function submit(){
     form = {
@@ -9,7 +9,14 @@ function submit(){
         c : $('#c').val()
     };
     
-    $('#output')[0].innerHTML = '<h3>' + factor() + '</h3>';
+    var factored = factor();
+    
+    if(factored == error){
+        alert(factor());
+    }
+    else{
+        $('#output')[0].innerHTML = '<h3>' + factored + '</h3>';
+    }
 }
 
 function factor(){
@@ -87,7 +94,10 @@ function log(assembly){
     row.insertBefore(factored, null);
     $('#table')[0].insertBefore(row, null);
     
-    equation.innerHTML = 'f(x)= ' + form.a + 'x' + '<sup>2</sup>' +
+    var a = form.a;
+    if(a == 1) a = "";
+    
+    equation.innerHTML = 'f(x)= ' + a + 'x' + '<sup>2</sup>' +
         ' + ' + form.b + 'x' + ' + ' + form.c;
     factored.innerHTML = assembly;
 }
