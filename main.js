@@ -62,9 +62,9 @@ function findB(c, b){
 }
 
 function gcf(x, y){
-    for(var i = x; i > 0; i--){
+    for(var i = Math.abs(x); i > 0; i--){
         if(x % i === 0 && y % i === 0){
-            return i;
+            return i * (x / Math.abs(x));
         }
     }
     return false;
