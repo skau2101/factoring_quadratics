@@ -1,13 +1,13 @@
-var form;
-
 var error = "CAN'T BE FACTORED";
 
+var sparse = sp.noSpaces("3x + 2y - 6");
+sparse = sp.m2pm(sparse);
+sparse = sp.seperate(sparse);
+
+console.log(sparse);
+
 function submit(){
-    form = {
-        a : $('#a').val(),
-        b : $('#b').val(),
-        c : $('#c').val()
-    };
+    eq = $('#equation');
     
     var factored = factor();
     
