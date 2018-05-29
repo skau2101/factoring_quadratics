@@ -29,15 +29,26 @@ function submit(){
 
 function factor(){
     if(!form.a) form.a = 1;
-    var b = findB(form.a * form.c, form.b);
+    divides_evenly = false;
+    if(form.b % form.a === 0 && form.c % form.a === 0){
+        divides_evenly = true;
+        form.b /= form.a;
+        form.c /= form.a;
+        b = findB(form.c, form.b);
         if(!b) return error;
-    var gcf1 = gcf(form.a, b[0]);
-        if(!gcf1) return error;
-    var gcf2 = gcf(b[1], form.c);
-        if(!gcf2) return error;
-    var term1 = form.a / gcf1;
-    var term2 = b[0] / gcf1;
-    
+        term1 = b[0];
+        term2 = b[1];
+    }
+    else{
+        b = findB(form.a * form.c, form.b);
+            if(!b) return error;
+        var gcf1 = gcf(form.a, b[0]);
+            if(!gcf1) return error;
+        var gcf2 = gcf(b[1], form.c);
+            if(!gcf2) return error;
+        term1 = form.a / gcf1;
+        term2 = b[0] / gcf1;
+    }
     log(assemble(term1, term2, gcf1, gcf2));
 
     return(assemble(term1, term2, gcf1, gcf2));
@@ -85,7 +96,8 @@ function assemble(term1, term2, gcf1, gcf2){
     if(term1 == 1) term1 = "";
     if(gcf1 == 1) gcf1 = "";
     
-    return("(" + term1 +  "x + " + term2 + ")(" + gcf1 + "x + " + gcf2 + ")");
+    if(!divides_evenly) return("(" + term1 +  "x + " + term2 + ")(" + gcf1 + "x + " + gcf2 + ")");
+    else return (form.a + "(" + term1 +  " + x)(" + term2 + " + x)");
 }
 
 function log(assembly){
