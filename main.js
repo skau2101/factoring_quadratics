@@ -2,9 +2,9 @@ var error = "CAN'T BE FACTORED";
 
 
 function submit(){
-    eq = $('#equation').val();
+    input = $('#equation').val();
     
-    eq = sp.assem(eq);
+    eq = sp.assem(input);
     
     if(Object.keys(eq[2]).length > 1){
         alert(error);
@@ -99,8 +99,7 @@ function log(assembly){
     var a = form.a;
     if(a == 1) a = "";
     
-    equation.innerHTML = 'f(x)= ' + a + 'x' + '<sup>2</sup>' +
-        ' + ' + form.b + 'x' + ' + ' + form.c;
+    equation.innerHTML = input;
     factored.innerHTML = assembly;
 }
 
