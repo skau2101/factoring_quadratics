@@ -1,13 +1,21 @@
 var error = "CAN'T BE FACTORED";
 
-var sparse = sp.noSpaces("3x + 2y - 6");
-sparse = sp.m2pm(sparse);
-sparse = sp.seperate(sparse);
-
-console.log(sparse);
 
 function submit(){
-    eq = $('#equation');
+    eq = $('#equation').val();
+    
+    eq = sp.assem(eq);
+    
+    if(Object.keys(eq[2]).length > 1){
+        alert(error);
+        return -1;
+    }
+
+    form = {
+        a : eq[2].x,
+        b : eq[1].x,
+        c : eq[1][0]
+    };
     
     var factored = factor();
     
@@ -23,9 +31,7 @@ function factor(){
     if(!form.a) form.a = 1;
     var b = findB(form.a * form.c, form.b);
         if(!b) return error;
-        console.log(b);
     var gcf1 = gcf(form.a, b[0]);
-        console.log(gcf1);
         if(!gcf1) return error;
     var gcf2 = gcf(b[1], form.c);
         if(!gcf2) return error;
@@ -73,10 +79,6 @@ function gcf(x, y){
 function check(b, factors){
     if(factors[0] + factors[1] == b) return true;
     else return false;
-}
-
-function simplify(){
-    
 }
 
 function assemble(term1, term2, gcf1, gcf2){
