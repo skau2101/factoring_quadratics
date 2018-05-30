@@ -1,10 +1,12 @@
 var error = "CAN'T BE FACTORED";
-
+var a, form;
 
 function submit(){
     input = $('#equation').val();
     
     eq = sp.assem(input);
+    
+    console.log(eq);
     
     if(Object.keys(eq[2]).length > 1){
         alert(error);
@@ -17,41 +19,54 @@ function submit(){
         c : eq[1][0]
     };
     
+    if(form.a < 0) for(var i in form) form[i] *= -1;
+    
     var factored = factor();
     
-    if(factored == error){
-        alert(factor());
-    }
+    if(!factored) alert(error);
     else{
         $('#output')[0].innerHTML = '<h3>' + factored + '</h3>';
     }
 }
 
 function factor(){
+    a = 1;
+    console.log(a);
+    var terms = [];
+    
+    if(gcf([form.a, form.b, form.c])){
+        var fac = gcf([form.a, form.b, form.c]);
+        form.a /= fac;
+        form.b /= fac;
+        form.c /= fac;
+        a *= fac;
+    }
     if(!form.a) form.a = 1;
-    divides_evenly = false;
-    if(form.b % form.a === 0 && form.c % form.a === 0){
-        divides_evenly = true;
-        form.b /= form.a;
-        form.c /= form.a;
-        b = findB(form.c, form.b);
-        if(!b) return error;
-        term1 = b[0];
-        term2 = b[1];
+    if(a == 1){
+        var b = findB(form.c, form.b);
+        console.log(b);
+        if(!b) return false;
+        terms[0] = 1;
+        terms[1] = b[0];
+        terms[2] = 1;
+        terms[3] = b[1];
     }
     else{
-        b = findB(form.a * form.c, form.b);
-            if(!b) return error;
-        var gcf1 = gcf(form.a, b[0]);
-            if(!gcf1) return error;
-        var gcf2 = gcf(b[1], form.c);
-            if(!gcf2) return error;
-        term1 = form.a / gcf1;
-        term2 = b[0] / gcf1;
+        var b = findB(form.a * form.c, form.b);
+        console.log(b);
+        terms[2] = gcf([form.a, b[0]]);
+        terms[3] = gcf([b[1], form.c]);
+        terms[0] = form.a / terms[2];
+        terms[1] = b[0] / terms[2];
     }
-    log(assemble(term1, term2, gcf1, gcf2));
+    
+    for(var i in terms) if(!terms[i]) return false;
 
-    return(assemble(term1, term2, gcf1, gcf2));
+    console.log(terms);
+
+    log(assemble(terms));
+
+    return(assemble(terms));
 }
 
 function findB(c, b){
@@ -78,11 +93,17 @@ function findB(c, b){
     return(check(b, factors) ? factors : false);
 }
 
-function gcf(x, y){
-    for(var i = Math.abs(x); i > 0; i--){
-        if(x % i === 0 && y % i === 0){
-            return i * (x / Math.abs(x));
+function gcf(arr){
+    var works = false;
+    for(var i = Math.abs(arr[0]); i > 0; i--){
+        works = true;
+        for(var j in arr){
+            if(Math.abs(arr[j]) % i !== 0){
+                works = false;
+                break;
+            }
         }
+        if(works) return i;
     }
     return false;
 }
@@ -92,12 +113,10 @@ function check(b, factors){
     else return false;
 }
 
-function assemble(term1, term2, gcf1, gcf2){
-    if(term1 == 1) term1 = "";
-    if(gcf1 == 1) gcf1 = "";
-    
-    if(!divides_evenly) return("(" + term1 +  "x + " + term2 + ")(" + gcf1 + "x + " + gcf2 + ")");
-    else return (form.a + "(" + term1 +  " + x)(" + term2 + " + x)");
+function assemble(terms){
+    var assembly = (a + "(" + terms[0] +  "x + " + terms[1] + ")(" + terms[2] + "x + " + terms[3] + ")");
+    assembly = assembly.replace(/1/g, '');
+    return assembly;
 }
 
 function log(assembly){
