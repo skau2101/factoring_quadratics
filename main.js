@@ -27,8 +27,8 @@ function submit(){
         alert(error);
     }
     else{
-        var output = document.createElement('h3');
-        output.innerHTML = factored
+        var output = document.createElement('tr');
+        output.innerHTML = '<td>' + factored + '</td>';
         $('#output')[0].insertBefore(output, null);
     }
 }
