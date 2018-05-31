@@ -1,5 +1,5 @@
-var error = "CAN'T BE FACTORED";
-var a, form;
+var error = "ERROR";
+var a, form, eq, input;
 
 function submit(){
     input = $('#equation').val();
@@ -8,7 +8,7 @@ function submit(){
     
     console.log(eq);
     
-    if(Object.keys(eq[2]).length > 1){
+    if(!eq[2]){
         alert(error);
         return -1;
     }
@@ -23,9 +23,13 @@ function submit(){
     
     var factored = factor();
     
-    if(!factored) alert(error);
+    if(!factored){
+        alert(error);
+    }
     else{
-        $('#output')[0].innerHTML = '<h3>' + factored + '</h3>';
+        var output = document.createElement('h3');
+        output.innerHTML = factored
+        $('#output')[0].insertBefore(output, null);
     }
 }
 
@@ -64,7 +68,7 @@ function factor(){
 
     console.log(terms);
 
-    log(assemble(terms));
+    //log(assemble(terms));
 
     return(assemble(terms));
 }
